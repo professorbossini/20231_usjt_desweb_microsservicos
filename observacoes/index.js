@@ -6,10 +6,10 @@ app.use(express.json());
 
 const funcoes = {
   ObservacaoClassificada: (observacao) => {
-    const observacoes = observacoesPorLembreteId[observacao.lembreteId]
-    const obsParaAtualizar = observacoes.find(o => o.id === observacao.id)
-    obsParaAtualizar.status = observacao.status
-    console.log('obsParaAtualizar', obsParaAtualizar)
+    const observacoes = observacoesPorLembreteId[observacao.lembreteId];
+    const obsParaAtualizar = observacoes.find(o => o.id === observacao.id);
+    obsParaAtualizar.status = observacao.status;
+    console.log('obsParaAtualizar', obsParaAtualizar);
     const evento = {
       tipo: 'ObservacaoAtualizada',
       dados: {
@@ -51,13 +51,15 @@ app.get('/lembretes/:id/observacoes', (req, res) => {
 });
 
 app.post('/eventos', (req, res) => {
-  console.log(req.body)
-  try{
-    funcoes[req.body.tipo](req.body.dados)
+  console.log(`-------> Chegou um evento: ${req.body.tipo}`);
+  try {
+    funcoes[req.body.tipo](req.body.dados);
+  } catch(err) {
+    console.log(`Vou ignorar o evento: ${req.body.tipo}`);
+    console.log(`Ele veio com: ${req.body.dados}`);
   }
-  catch(err){}
-  res.status(200).send({msg: 'ok'})
-})
+  res.send({msg: 'ok'})
+});
 
 app.listen(5000, (() => {
   console.log('Observações. Porta 5000');

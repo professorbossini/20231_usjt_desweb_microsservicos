@@ -1,0 +1,19 @@
+1. Ajustar o mss de classificação para que ele não perca eventos
+
+2. Reiniciar todos os mss
+
+3. Cadastrar um lembrete
+
+4. Cadastrar uma observação associada a ele
+
+5. Consultar a base consolidada e verificar que a observação está classificada
+
+6. Parar o mss de classificação
+
+7. Cadastrar nova observação
+
+8. Consultar a base consolidada e verificar que a nova observação ainda não está classificada
+
+9. Reiniciar o mss de classificação
+
+10. Consultar a base consolidada e verificar que todas as observações estão classificadas

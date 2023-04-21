@@ -1,4 +1,5 @@
 const express = require ('express')
+const axios = require('axios')
 const app = express()
 app.use(express.json())
 const palavraChave = 'importante'
@@ -11,6 +12,8 @@ const funcoes = {
     }
     console.log(evento)
     axios.post('http://localhost:10000/eventos', evento)
+    .then(res => console.log('then'))
+    .catch(e => console.log(e))
   }
 }
 //POST /eventos
@@ -24,4 +27,20 @@ app.post('/eventos', (req, res) => {
 })
 
 
-app.listen(7000, () => console.log("Classificacao. Porta 7000."))
+app.listen(7000, async () => {
+  console.log("Classificacao. Porta 7000.")
+  try{
+    const eventos = await axios.get('http://localhost:10000/eventos')
+    console.log(eventos.data)
+    eventos.data.forEach((evento) => {
+      try{
+        console.log(evento)
+        funcoes[evento.tipo](evento.dados)
+      }
+      catch (e){}
+    })
+  }
+  catch (e){
+    console.log(e)
+  }
+})

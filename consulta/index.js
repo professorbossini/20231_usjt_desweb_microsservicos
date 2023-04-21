@@ -1,5 +1,6 @@
 const express = require ('express')
 const app = express()
+const axios = require('axios')
 app.use(express.json())
 
 const baseConsulta = {}
@@ -32,4 +33,13 @@ app.post('/eventos', (req, res) => {
   res.status(200).send(baseConsulta)
 })
 
-app.listen(6000, () => console.log("Consulta. 6000"))
+app.listen(6000, async () => {
+  console.log("Consulta. 6000")
+  const resp = await axios.get('http://localhost:10000/eventos')
+  resp.data.forEach((valor, indice, colecao) => {
+    try{
+      funcoes[valor.tipo](valor.dados)
+    }
+    catch(e){}
+  })
+})
